@@ -13,7 +13,7 @@ import jinja2
 
 # Only use syntax features supported by Docker 17.09
 TEMPLATE = r"""
-FROM buildpack-deps:bionic
+FROM {{ from_image }}
 
 # Avoid prompts from apt
 ENV DEBIAN_FRONTEND=noninteractive
@@ -202,6 +202,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 # Also used for the group
 DEFAULT_NB_UID = 1000
 
+DEFAULT_FROM_IMAGE = "buildpack-deps:bionic"
 
 class BuildPack:
     """
@@ -504,6 +505,7 @@ class BuildPack:
         self._check_stencila()
 
         return t.render(
+            from_image=build_args.get("FROM_IMAGE", DEFAULT_FROM_IMAGE),
             packages=sorted(self.get_packages()),
             path=self.get_path(),
             build_env=self.get_build_env(),
