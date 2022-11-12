@@ -63,7 +63,7 @@ jobs:
     runs-on: ubuntu-22.04
     env:
       DEFAULT_REGISTRY: quay.io
-      IMAGE_NAME: jupyterhub/repo2docker
+      IMAGE_NAME: noroutine/repo2docker
 
     services:
       # So that we can test this in PRs/branches
